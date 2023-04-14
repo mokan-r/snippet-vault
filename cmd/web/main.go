@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"flag"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/mokan-r/snippet-vault/internal/models"
 	"log"
 	"net/http"
 )
@@ -11,6 +12,7 @@ import (
 type application struct {
 	infoLog  *log.Logger
 	errorLog *log.Logger
+	snippets *models.SnippetModel
 }
 
 func main() {
@@ -29,6 +31,7 @@ func main() {
 	app := &application{
 		infoLog:  infoLog,
 		errorLog: errorLog,
+		snippets: &models.SnippetModel{DB: db},
 	}
 
 	srv := &http.Server{
